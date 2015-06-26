@@ -10,7 +10,7 @@ if(!class_exists('Widget')) {
  * @property string $DisplayMode
  * @property string $ArchiveType
  */
-class ArchiveWidget extends BlogArchiveWidget implements MigratableObject {
+class ArchiveWidget extends BlogArchiveWidget {
 	/**
 	 * @var array
 	 */

@@ -9,7 +9,7 @@ if(!class_exists('Widget')) {
  *
  * @package blog
  */
-class TagCloudWidget extends BlogTagsWidget implements MigratableObject {
+class TagCloudWidget extends BlogTagsWidget {
 	/**
 	 * @var array
 	 */

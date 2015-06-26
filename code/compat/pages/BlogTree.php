@@ -3,7 +3,7 @@
 /**
  * @deprecated since version 2.0
  */
-class BlogTree extends Page implements MigratableObject {
+class BlogTree extends Page {
 	/**
 	 * @var string
 	 */
@@ -22,16 +22,6 @@ class BlogTree extends Page implements MigratableObject {
 	 */
 	public function canCreate($member = null) {
 		return false;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function up() {
-		if($this->ClassName === 'BlogTree') {
-			$this->ClassName = 'Page';
-			$this->write();
-		}
 	}
 }
 

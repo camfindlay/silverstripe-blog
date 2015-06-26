@@ -3,7 +3,7 @@
 /**
  * @deprecated since version 2.0
  */
-class BlogHolder extends BlogTree implements MigratableObject {
+class BlogHolder extends Blog {
 	/**
 	 * @var string
 	 */
@@ -30,21 +30,11 @@ class BlogHolder extends BlogTree implements MigratableObject {
 	public function canCreate($member = null) {
 		return false;
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function up() {
-		if($this->ClassName === 'BlogHolder') {
-			$this->ClassName = 'Blog';
-			$this->write();
-		}
-	}
 }
 
 /**
  * @deprecated since version 2.0
  */
-class BlogHolder_Controller extends BlogTree_Controller {
+class BlogHolder_Controller extends Blog_Controller {
 
 }

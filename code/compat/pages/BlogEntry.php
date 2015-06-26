@@ -8,7 +8,7 @@
  * @property string $PublishDate
  * @property string $Tags
  */
-class BlogEntry extends BlogPost implements MigratableObject {
+class BlogEntry extends BlogPost {
 	/**
 	 * @var string
 	 */
@@ -31,36 +31,6 @@ class BlogEntry extends BlogPost implements MigratableObject {
 	}
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function up() {
-		foreach($this->TagNames() as $tag) {
-			if($this->Tags()->filter('Title', $tag)->count()) {
-				continue;
-			}
-
-			$tagObject = new BlogTag();
-			$tagObject->Title = $tag;
-			$tagObject->BlogID = $this->ParentID;
-
-			$tagObject->write();
-
-			$this->Tags()->add($tagObject);
-		}
-
-		$this->PublishDate = $this->Date;
-		$this->AuthorNames = $this->Author;
-
-		// If a user has subclassed BlogEntry, it should not be turned into a BlogPost.
-		if($this->ClassName === 'BlogEntry') {
-			$this->ClassName = 'BlogPost';
-			$this->RecordClassName = 'BlogPost';
-		}
-		
-		$this->write();
-	}
-
-	/**
 	 * Safely split and parse all distinct tags assigned to this BlogEntry.
 	 *
 	 * @deprecated since version 2.0
@@ -77,18 +47,6 @@ class BlogEntry extends BlogPost implements MigratableObject {
 		}
 
 		return $results;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function requireDefaultRecords() {
-		parent::requireDefaultRecords();
-
-		if(BlogMigrationTask::config()->run_during_dev_build) {
-			$task = new BlogMigrationTask();
-			$task->up();
-		}
 	}
 }
 
